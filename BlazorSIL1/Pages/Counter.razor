@@ -1,0 +1,18 @@
+﻿@page "/counter"
+
+<PageTitle>Драка</PageTitle>
+
+<h1>Ударов по ебалу Сергея Кайгорода</h1>
+
+<p role="status">Ударов воспроизведенно: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Бить</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}

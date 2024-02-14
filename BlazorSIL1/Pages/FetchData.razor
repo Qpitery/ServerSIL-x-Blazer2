@@ -1,0 +1,51 @@
+﻿@page "/fetchdata"
+@using BlazorSIL1.Data
+@using Microsoft.EntityFrameworkCore
+@inject Todo todo
+<PageTitle>Weather forecast</PageTitle>
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (todos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Todo Name</th>
+                <th>Description</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var todoItem in todos)
+            {
+                <tr>
+                    <td>@todoItem.Id</td>
+                    <td>@todoItem.TodoName</td>
+                    <td>@todoItem.Description</td>
+                    <td>@todoItem.Status?.StatusName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Todo>? todos;
+
+    protected override async Task OnInitializedAsync()
+    {
+   
+        using var context = new User06Context();
+
+        
+        todos = await context.Todos.Include(t => t.Status).ToListAsync();
+    }
+}
